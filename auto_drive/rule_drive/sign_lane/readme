@@ -1,0 +1,92 @@
+### TRAFFIC SIGN PREDICTION ###
+import sign as SN
+
+# 1. create a Sign object,
+# note: model file "libsvm.dat" should be on current execution dir
+
+sn = SN.Sign()
+# 2. predict a image if 
+# img: cv2.Image
+# class_id: {-1: "no sign", 
+#           0: "right fork",
+#           1: "left fork",
+#           2:"Right turn", 
+#           3:"left turn",
+#           4: "left U-turn",
+#           5: "right U-turn"}
+
+class_id = sn.predict(img)    
+
+================ Update 10-04 ==================
+### DETECT WALL CROSS
+
+import lane
+
+# img: cv2.Image
+# locs: location of wall cross [width, height]
+locs = lane.detect_cross(img)
+
+================ Update 10-09 ==================
+### Detect OBSTACLE ###
+import sign as SN
+
+# img: cv2.Image
+# loc: obstacle location [width, height]
+loc = SN.detect_obstacle(img)
+
+
+### PREDICT LANE MARK ###
+
+import lane
+
+mark = lane.Mark()
+# img: cv2.Image
+# direct: { -1: no mark,
+#            0: forward,
+#            1: backward,
+#            2: left,
+#            3: right }
+direct = mark.predict(img)
+
+================ Update 10-10 ==================
+### LOCATE LANE ID ###
+
+import lane
+
+# img: cv2.Image
+# lane_id > 0: from left to right: 0, 1, 2, 2.5, 3, 4, 5
+# lane_id == -1: failed to locate 
+lanes = lane.Lanes(img)
+lane_id = lanes.locate()
+
+================ Update 10-11 ==================
+### CROSS ANGLE ###
+
+import lane
+
+# img: cv2.Image
+# cross: { None:not found, 
+#            [angle, [x,y]] }
+lanes = lane.Lanes(img)
+cross = lanes.cross_angle()
+
+
+================ Update 10-16 ==================
+#### New feature
+### DETECT IF CAR IS ON MAIN LANES
+import lane
+import cv2
+
+#img: cv2.Image
+#on_which: {1: on main lanes
+#           0: on narrow lanes,
+#           -1: unknown}
+
+lanes = lane.Lanes(img)
+on_which = lanes.on_main_lanes()
+
+#### Improvements
+# 1.  improve sensitivity of fork sign detection
+# 2.  reduce error rate of sign detection
+ 
+
