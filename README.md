@@ -1,6 +1,8 @@
 # AI Formula Racing
 AI based driving formula
 
+![Simulator](https://raw.githubusercontent.com/YingshuLu/AI-Formula-Racing/master/sample/race.png)
+
 # Terminology
 
 
@@ -25,7 +27,13 @@ A self-driving car (also called an autonomous car or driverless car) is a vehicl
 Obstacles can be one or more stationary vehicles placed on the track.
 Formula Trend Preliminary Competition
 Formula Trend is a racing competition that is designed specifically for AI agents. In the competition, an AI agent has to control a car based on footage from the front bumper camera and other information, such as speed, throttle, brakes and so on. Just like Formula 1, the faster you finish a lap, the higher your rank will be.
+![OBSTACLE](https://raw.githubusercontent.com/YingshuLu/AI-Formula-Racing/master/sample/Obstable.jpg)
 
+## Traffic sign
+Traffic sign tell AI agent which track is the shortest one, AI agent should follow the direction of the sign.
+
+![Left fork](https://raw.githubusercontent.com/YingshuLu/AI-Formula-Racing/master/sample/sign-08.png)
+![Right Fork](https://raw.githubusercontent.com/YingshuLu/AI-Formula-Racing/master/sample/sign-07.png)
 
 # Description
 In the Competition, your AI agent has to complete a certain number of laps per race, and there can be several races per day. Additionally, the AI agent also has to navigate some challenges on the track but there are traffic signs to assist you as shown below. The length of a track ranges from 60m to 90m and the maximum speed of the car is no more than 2 m/s (meters per second).
