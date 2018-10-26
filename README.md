@@ -26,7 +26,8 @@ A self-driving car (also called an autonomous car or driverless car) is a vehicl
 ## Obstacles
 Obstacles can be one or more stationary vehicles placed on the track.
 Formula Trend Preliminary Competition
-Formula Trend is a racing competition that is designed specifically for AI agents. In the competition, an AI agent has to control a car based on footage from the front bumper camera and other information, such as speed, throttle, brakes and so on. Just like Formula 1, the faster you finish a lap, the higher your rank will be.
+Formula Trend is a racing competition that is designed specifically for AI agents. In the competition, an AI agent has to control a car based on footage from the front bumper camera and other information, such as speed, throttle, brakes and so on. Just like Formula 1, the faster you finish a lap, the higher your rank will be.  
+
 ![OBSTACLE](https://raw.githubusercontent.com/YingshuLu/AI-Formula-Racing/master/sample/Obstable.jpg)
 
 ## Traffic sign
@@ -70,7 +71,7 @@ def wall_detector(img):
     return left_wall_distance, right_wall_distance
 ```
 
-## Angle:
+## Angle
 if left black color count bigger than right black color count, then turn right, else turn left.
 
 we limit the angle from +8° to -8° to keep speed. (0.15)
