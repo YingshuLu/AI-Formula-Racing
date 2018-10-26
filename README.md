@@ -43,3 +43,57 @@ The simulator has a manual mode and an autonomous mode. In the manual mode, you 
 
 # Example
 Please refer to [my video](https://www.youtube.com/watch?v=bvX_Qhs79-E&t=466s) to realize more details.
+
+
+# Dirving control
+
+## Turn
+We try to separate the image to left bottom and right bottom, and count black wall pixel.
+```
+@staticmethod
+def wall_detector(img):
+    img_height = img.shape[0]
+    img_width = img.shape[1]
+    half_width = int(img_width * 0.5)
+    half_height = int(img_height * 0.2)
+    img_left = img[half_height:img_height, 0:half_width].copy()
+    img_right = img[half_height:img_height, half_width:img_width].copy()
+
+    black_wall = [(0, 0, 0), (10, 10, 10)]
+    yellow_wall = [(0, 160, 160), (0, 180, 180)]
+    max_color_count = half_height * half_width * 4
+    left_color_count = float(ImageProcessor.count_color(img_left, black_wall, yellow_wall))
+    right_color_count = float(ImageProcessor.count_color(img_right, black_wall, yellow_wall))
+    left_wall_distance = left_color_count / max_color_count
+    right_wall_distance = right_color_count / max_color_count
+
+    return left_wall_distance, right_wall_distance
+```
+
+## Angle:
+if left black color count bigger than right black color count, then turn right, else turn left.
+
+we limit the angle from +8° to -8° to keep speed. (0.15)
+
+
+```
+@staticmethod
+def find_wall_angle(left_wall_distance, right_wall_distance):
+    count_rate = (right_wall_distance / left_wall_distance) if left_wall_distance > 0 else 0
+    count_rate = max(min(count_rate, 0.15), 0)
+    steering_angle = -count_rate if right_wall_distance > left_wall_distance else count_rate
+    return steering_angle
+
+```
+
+## Throttle:
+always set to 1.
+
+Performance
+the code is running very fast, because all we need is count the black color and calculate rate.
+strength
+if the map change road color, it's still work.
+if you need big angle like U turn, you can just write a logical like: when wall rate is bigger than "0.3" then the max angle can be increase to "1.0".
+weakness
+because the cam view is not 180 degree, so sometime the image from cam didn't have any wall, but actually the wall is very close, you may crash when the car is too closing the wall.
+the railing under traffic sign is black too, if you don't have rule to clean it, the rate will be inaccurate.
